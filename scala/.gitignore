@@ -1,0 +1,8 @@
+.idea/
+project/project/
+project/target/
+target/
+*.class
+*.log
+src/main/scala/faces/notPublic/
+data/
