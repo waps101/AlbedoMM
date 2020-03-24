@@ -51,9 +51,9 @@ To build the Morphable Face Albedo Model you have to combine the albedo model wi
 FitScript from the [Basel Face Pipeline](https://github.com/unibas-gravis/basel-face-pipeline) adopted to the albedo model.
 
  ![Target](fitting/Bob_Stoops_0005.png)
- ![Fit](/fitting/results/fitter-best.png)
- ![Fit](/fitting/results/fitter-best-diffuse.png)
- ![Fit](/fitting/results/fitter-best-specular.png)
+ ![Fit](fitting/results/fitter-best.png)
+ ![Fit](fitting/results/fitter-best-diffuse.png)
+ ![Fit](fitting/results/fitter-best-specular.png)
 
 ## Run (precompiled):
 - run `java -Xmx2g -cp assembly.jar faces.apps.AlbedoModelFit`
