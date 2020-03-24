@@ -52,6 +52,7 @@ FitScript from the [Basel Face Pipeline](https://github.com/unibas-gravis/basel-
 
  ![Target](fitting/Bob_Stoops_0005.png)
  ![Fit](fitting/results/fitter-best_Gamma.png)
+ 
  ![Fit](fitting/results/fitter-best-diffuse.png)
  ![Fit](fitting/results/fitter-best-specular.png)
 
