@@ -23,6 +23,7 @@
  import javax.swing._
  import javax.swing.event.{ChangeEvent, ChangeListener}
  import breeze.linalg.min
+ import breeze.numerics.pow
  import faces.lib.{AlbedoMoMo, AlbedoMoMoIO, AlbedoMoMoRenderer}
  import scalismo.color.{RGB, RGBA}
  import scalismo.faces.gui.{GUIBlock, GUIFrame, ImagePanel}
@@ -79,6 +80,10 @@ case class SimpleAlbedoModelViewer(
   implicit val rnd: Random = Random(seed)
 
 
+  val g = 1.0 / 2.2 // gamma
+
+  def applyGamma(i: PixelImage[RGBA]): PixelImage[RGBA] = i.map(c => RGBA(pow(c.r, g), pow(c.g, g), pow(c.b, g)))
+
   val model: AlbedoMoMo = AlbedoMoMoIO.read(modelFile, "").get
   var showExpressionModel: Boolean = model.hasExpressions
 
@@ -97,7 +102,7 @@ case class SimpleAlbedoModelViewer(
     case _ => try{model.expressionModel.get.expression.rank} catch {case _: Exception => 0}
   }
 
-  var renderer: AlbedoMoMoRenderer = AlbedoMoMoRenderer(model, 1.0 / 2.2,  RGBA.BlackTransparent).cached(5)
+  var renderer: AlbedoMoMoRenderer = AlbedoMoMoRenderer(model,  10.0).cached(5)
 
   val light = fromAmbientDiffuse(RGB(0.6), RGB(0.1), EuclideanVector3D.unitZ).withNumberOfBands(2)
   val initDefault: RenderParameter = RenderParameter.defaultSquare.fitToImageSize(imageWidth, imageHeight).withEnvironmentMap(light)
@@ -322,8 +327,8 @@ case class SimpleAlbedoModelViewer(
 
   val toggleExpressionButton: JButton = GUIBlock.button("expressions off", {
     if ( model.hasExpressions ) {
-      if ( showExpressionModel ) renderer = AlbedoMoMoRenderer(model.neutralModel, 1.0 / 2.2,  RGBA.BlackTransparent).cached(5)
-      else renderer = AlbedoMoMoRenderer(model, 1.0 / 2.2,  RGBA.BlackTransparent).cached(5)
+      if ( showExpressionModel ) renderer = AlbedoMoMoRenderer(model.neutralModel, 10.0).cached(5)
+      else renderer = AlbedoMoMoRenderer(model,  10.0).cached(5)
 
       showExpressionModel = !showExpressionModel
       updateToggleExpressioButton()
@@ -404,7 +409,7 @@ case class SimpleAlbedoModelViewer(
       JOptionPane.showConfirmDialog(null, s"Would you like to overwrite the existing file: $file?","Warning",dialogButton) == JOptionPane.YES_OPTION
     }
 
-    val img = renderer.renderImage(init)
+    val img = applyGamma(renderer.renderImage(init))
 
     val fc = new JFileChooser()
     fc.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES)
@@ -504,7 +509,7 @@ case class SimpleAlbedoModelViewer(
   }
 
   def renderWithBG(init: RenderParameter): PixelImage[RGB] = {
-    val fg = renderer.renderImage(init)
+    val fg = applyGamma(renderer.renderImage(init))
     fg.zip(bg).map { case (f, b) => b.toRGB.blend(f) }
     //    fg.map(_.toRGB)
   }

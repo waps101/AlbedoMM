@@ -64,15 +64,13 @@ object SpecularRenderingTest extends App{
 
 
 /** parametric renderer for a Morphable Model, implements all useful Parameteric*Renderer interfaces */
-class AlbedoMoMoRenderer(val model: AlbedoMoMo, val gamma: Double, val specularExponent: Double, val clearColor: RGBA)
+class AlbedoMoMoRenderer(val model: AlbedoMoMo, val specularExponent: Double, val clearColor: RGBA)
   extends ParametricImageRenderer[RGBA]
     with ParametricLandmarksRenderer
     with ParametricMaskRenderer
     with ParametricMeshRenderer
     with ParametricAlbedoModel {
 
-
-  def applyGamma(i: PixelImage[RGBA]): PixelImage[RGBA] = i.map(c => RGBA(pow(c.r, gamma), pow(c.g, gamma), pow(c.b, gamma)))
   /** pad a coefficient vector if it is too short, basis with single vector */
   private def padCoefficients(coefficients: DenseVector[Double], rank: Int): DenseVector[Double] = {
     require(coefficients.length <= rank, "too many coefficients for model")
@@ -95,7 +93,7 @@ class AlbedoMoMoRenderer(val model: AlbedoMoMo, val gamma: Double, val specularE
 
     val imgDiffuse =  renderImageDiffuse(parameters, inst)
 
-    applyGamma(imgDiffuse.zip(imgSpec).map(p => (p._1+p._2).clamped))
+  imgDiffuse.zip(imgSpec).map(p => (p._1+p._2).clamped)
   }
 
   def renderImageDiffuse(parameters: RenderParameter): PixelImage[RGBA] = {
@@ -167,7 +165,7 @@ class AlbedoMoMoRenderer(val model: AlbedoMoMo, val gamma: Double, val specularE
   }
 
   /** get a cached version of this renderer */
-  def cached(cacheSize: Int) = new AlbedoMoMoRenderer(model, gamma, specularExponent, clearColor) {
+  def cached(cacheSize: Int) = new AlbedoMoMoRenderer(model,  specularExponent, clearColor) {
     private val imageRenderer = Memoize(super.renderImage, cacheSize)
     private val meshRenderer = Memoize(super.renderMesh, cacheSize)
     private val maskRenderer = Memoize((super.renderMask _).tupled, cacheSize)
@@ -183,10 +181,9 @@ class AlbedoMoMoRenderer(val model: AlbedoMoMo, val gamma: Double, val specularE
 }
 
 object AlbedoMoMoRenderer {
-  def apply(model: AlbedoMoMo, gamma: Double, specularExponent: Double, clearColor: RGBA) = new AlbedoMoMoRenderer(model, gamma, specularExponent, clearColor)
-  def apply(model: AlbedoMoMo, gamma: Double,  clearColor: RGBA) = new AlbedoMoMoRenderer(model, gamma, 20.0 , clearColor)
-  def apply(model: AlbedoMoMo, gamma: Double) = new AlbedoMoMoRenderer(model, gamma, 20.0,  RGBA.BlackTransparent)
-  def apply(model: AlbedoMoMo) = new AlbedoMoMoRenderer(model, 1.0 / 2.2, 20.0,  RGBA.BlackTransparent)
+  def apply(model: AlbedoMoMo,  specularExponent: Double, clearColor: RGBA) = new AlbedoMoMoRenderer(model, specularExponent, clearColor)
+  def apply(model: AlbedoMoMo,   specularExponent: Double) = new AlbedoMoMoRenderer(model, specularExponent, RGBA.BlackTransparent)
+  def apply(model: AlbedoMoMo) = new AlbedoMoMoRenderer(model, 20.0,  RGBA.BlackTransparent)
 
 }
 

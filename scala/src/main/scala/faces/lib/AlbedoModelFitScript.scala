@@ -22,6 +22,7 @@ package faces.lib
 
 import java.io.File
 
+import breeze.numerics.pow
 import faces.lib.ParameterProposals.implicits._
 import scalismo.color.{RGB, RGBA}
 import scalismo.faces.image.PixelImage
@@ -131,12 +132,8 @@ object AlbedoModelFitScript {
     val lightSHBandMixter = SHLightBandEnergyMixer(0.1f)
     val lightSHSpatial = SHLightSpatialPerturbation(0.05f)
     val lightSHColor = SHLightColorProposal(0.01f)
-    val specularExponenthf = GaussianSpecularProposal(0.1f).toParameterProposal
-    val specularExponentf = GaussianSpecularProposal(1.0f).toParameterProposal
-    val specularExponentc = GaussianSpecularProposal(5.0f).toParameterProposal
-    val specularExponent = MixtureProposal(specularExponentc + specularExponentf + specularExponenthf)
 
-    MixtureProposal(MixtureProposal(lightSHSpatial + lightSHBandMixter + lightSHIntensity + lightSHPert + lightSHColor).toParameterProposal + 0.2 *: specularExponent)
+    MixtureProposal(MixtureProposal(lightSHSpatial + lightSHBandMixter + lightSHIntensity + lightSHPert + lightSHColor).toParameterProposal)
   }
 
 
@@ -185,13 +182,26 @@ object AlbedoModelFitScript {
   }
 
 
-  def fit(targetFn: String, lmFn: String, outputDir: String, modelRenderer: AlbedoMoMoRenderer, expression: Boolean = true)(implicit rnd: Random): RenderParameter = {
+  def fit(targetFn: String, lmFn: String, outputDir: String, modelRenderer: AlbedoMoMoRenderer, expression: Boolean = true, gamma: Boolean = true)(implicit rnd: Random): RenderParameter = {
 
-    val target = PixelImageIO.read[RGBA](new File(targetFn)).get
+    val g = 1.0 / 2.2 // gamma
+
+    def applyGamma(i: PixelImage[RGBA]): PixelImage[RGBA] = i.map(c => RGBA(pow(c.r, g), pow(c.g, g), pow(c.b, g)))
+
+    def inverseGamma(i: PixelImage[RGBA]): PixelImage[RGBA] = i.map(c => RGBA(pow(c.r, 1.0 / g), pow(c.g, 1.0 / g), pow(c.b, 1.0 / g)))
+
+    val loadimage = PixelImageIO.read[RGBA](new File(targetFn)).get
+    val target = if (gamma)
+      inverseGamma(loadimage)
+    else
+      loadimage
 
     val targetLM = TLMSLandmarksIO.read2D(new File(lmFn)).get.filter(lm => lm.visible)
 
     PixelImageIO.write(target, new File(s"$outputDir/target.png")).get
+
+    if (gamma)
+      PixelImageIO.write(applyGamma(target), new File(s"$outputDir/target_Gamma.png")).get
 
 
     val init: RenderParameter = RenderParameter.defaultSquare.fitToImageSize(target.width, target.height)
@@ -259,7 +269,7 @@ object AlbedoModelFitScript {
 
 
     //landmark chain for initialisation
-    val initDefault: RenderParameter = RenderParameter.defaultSquare.fitToImageSize(target.width, target.height).withDirectionalLight(RenderParameter.defaultSquare.directionalLight.copy(shininess = 20.0))
+    val initDefault: RenderParameter = RenderParameter.defaultSquare.fitToImageSize(target.width, target.height)
     val init10 = initDefault.withMoMo(init.momo.withNumberOfCoefficients(50, 50, 5))
     val initLMSamples: IndexedSeq[RenderParameter] = poseFitter.iterator(init10, mhLogger).take(5000).toIndexedSeq
 
@@ -282,6 +292,10 @@ object AlbedoModelFitScript {
 
     val imgBest = modelRenderer.renderImage(best)
     PixelImageIO.write(imgBest, new File(s"$outputDir/fitter-best.png")).get
+
+    if (gamma)
+      PixelImageIO.write(applyGamma(imgBest), new File(s"$outputDir/fitter-best_Gamma.png")).get
+    best
 
     val imgBestDiffuse = modelRenderer.renderImageDiffuse(best)
     PixelImageIO.write(imgBestDiffuse, new File(s"$outputDir/fitter-best-diffuse.png")).get

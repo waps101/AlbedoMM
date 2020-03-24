@@ -13,12 +13,12 @@ object AlbedoModelFit extends App{
 
 
   val model =  AlbedoMoMoIO.read(new File("albedoModel2020_face12.h5")).get
-  val renderer = AlbedoMoMoRenderer(model)
+  val renderer = AlbedoMoMoRenderer(model, 10.0).cached(5)
 
   val targetFn = "fitting/Bob_Stoops_0005.png"
   val lmFn = "fitting/Bob_Stoops_0005_face0.tlms"
   val outPutDir = "fitting/results"
 
 
-  AlbedoModelFitScript.fit(targetFn, lmFn, outPutDir, renderer, true)
+  AlbedoModelFitScript.fit(targetFn, lmFn, outPutDir, renderer, true, true)
 }

@@ -8,31 +8,6 @@ import scalismo.sampling.{ProposalGenerator, SymmetricTransitionRatio, Transitio
 import scalismo.utils.Random
 
 
-/** proposal to change the scaling of the image through the focal length of the camera
- *
- * @param logSdev log of factor of typical variation, 0.0 is no variation */
-case class GaussianSpecularProposal(logSdev: Double)(implicit rnd: Random)
-  extends ProposalGenerator[DirectionalLight] with TransitionProbability[DirectionalLight] {
-
-  override def propose(current: DirectionalLight):DirectionalLight = {
-    val f = math.exp(rnd.scalaRandom.nextGaussian() * logSdev)
-    current.copy(shininess = current.shininess * f)
-  }
-
-  override def logTransitionProbability(from: DirectionalLight, to: DirectionalLight): Double = {
-    if (to.copy(shininess = from.shininess) == from) {
-      LogNormalDistribution.logDensity(to.shininess/from.shininess, 0.0, logSdev)
-    } else
-      Double.NegativeInfinity
-  }
-
-  override def toString: String = s"GaussianSpecularProposal($logSdev)"
-
-
-}
-
-
-
 
 object ParameterProposals {
   /** implicit conversions for promoting partial BetterRenderParameters to full BetterRenderParameter proposals, just use "proposalGenerator.toParameterProposal" */

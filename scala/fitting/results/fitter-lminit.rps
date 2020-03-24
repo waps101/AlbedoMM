@@ -28,7 +28,7 @@
     "specular": [0.0, 0.0, 0.0],
     "@type": "DirectionalLight",
     "ambient": [0.0, 0.0, 0.0],
-    "shininess": 20.0
+    "shininess": 10.0
   },
   "version": "V4.0",
   "environmentMap": {
