@@ -1,4 +1,4 @@
-# [An Albedo Morphable Model](https://arxiv.org/)
+# [A Morphable Face Albedo Model](https://arxiv.org/)
 
  [William A. P. Smith](https://www-users.cs.york.ac.uk/wsmith)<sup> 1</sup>, [Alassane Seck](https://www.linkedin.com/in/alassane-seck-67508365)<sup> 2,3</sup>, [Hannah Dee](http://users.aber.ac.uk/hmd1/)<sup> 3</sup>, [Bernard Tiddeman](http://users.aber.ac.uk/bpt/)<sup> 3</sup>, [Joshua Tenenbaum](http://web.mit.edu/cocosci/josh.html)<sup> 4</sup> and [Bernhard Egger](https://eggerbernhard.ch/)<sup> 4</sup>
  <br/>
