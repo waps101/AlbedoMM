@@ -21,7 +21,7 @@
 In this paper, we bring together two divergent strands of research: photometric face capture and statistical 3D face appearance modelling. We propose a novel lightstage capture and processing pipeline for acquiring ear-to-ear, truly intrinsic diffuse and specular albedo maps that fully factor out the effects of illumination, camera and geometry. Using this pipeline, we capture a dataset of 50 scans and combine them with the only existing publicly available albedo dataset (3DRFE) of 23 scans. This allows us to build the first morphable face albedo model. We believe this is the first statistical analysis of the variability of facial specular albedo maps. This model can be used as a plug in replacement for the texture model of the Basel Face Model and we make our new albedo model publicly available. We ensure careful spectral calibration such that our model is built in a linear sRGB space, suitable for inverse rendering of images taken by typical cameras. We demonstrate our model in a state of the art analysis-by-synthesis 3DMM fitting pipeline, are the first to integrate specular map estimation and outperform the Basel Face Model in albedo reconstruction. 
 
 ## Scala code for loading, visualising and fitting the model
-We make available [Scala code](scala/README.md) for loading the statistical mode, visualising its principal components and fitting to an image in an inverse rendering pipeline.
+We make available [Scala code](scala/README.md) for loading the statistical model, visualising its principal components and fitting to an image in an inverse rendering pipeline.
 
 ## Matlab code for sampling and Poisson blending textures
 <p align="center"><img width="100%" src="figures/pipeline.jpg" /></p>
