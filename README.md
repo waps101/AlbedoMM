@@ -36,6 +36,10 @@ If you wish to use the model in matlab, download the h5 file in the release fold
     texEV = h5read('albedoModel2020_bfm_albedoPart.h5','/diffuseAlbedo/model/pcaVariance')';
 ```
 
+## License
+
+We give permission to use the model and code only for academic research purposes. Anyone wishing to use the model or code for commercial purposes should contact [William Smith](mailto:william.smith@york.ac.uk) in the first instance.
+
 ## Citation
 
 If you use the model or the code in your research, please cite the following paper:
