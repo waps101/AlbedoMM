@@ -76,6 +76,18 @@ If you find our work useful in your research, please cite:
 }
 ```
 
+    
+In addition, if you use the model, you should cite the following paper since the model is partly derived from the data in the 3DRFE dataset:
+
+```
+@inproceedings{stratou2011effect,
+  title={Effect of illumination on automatic expression recognition: a novel {3D} relightable facial database},
+  author={Stratou, Giota and Ghosh, Abhijeet and Debevec, Paul and Morency, Louis-Philippe},
+  booktitle=FG,
+  pages={611--618},
+  year={2011}
+}
+```
 For the usage of the Basel Face Model also cite:
 
 ```
