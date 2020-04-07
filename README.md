@@ -1,4 +1,4 @@
-# [A Morphable Face Albedo Model](https://arxiv.org/)
+# [A Morphable Face Albedo Model](https://arxiv.org/abs/2004.02711)
 
  [William A. P. Smith](https://www-users.cs.york.ac.uk/wsmith)<sup> 1</sup>, [Alassane Seck](https://www.linkedin.com/in/alassane-seck-67508365)<sup> 2,3</sup>, [Hannah Dee](http://users.aber.ac.uk/hmd1/)<sup> 3</sup>, [Bernard Tiddeman](http://users.aber.ac.uk/bpt/)<sup> 3</sup>, [Joshua Tenenbaum](http://web.mit.edu/cocosci/josh.html)<sup> 4</sup> and [Bernhard Egger](https://eggerbernhard.ch/)<sup> 4</sup>
  <br/>
@@ -45,6 +45,7 @@ We give permission to use the model and code only for academic research purposes
 If you use the model or the code in your research, please cite the following paper:
 
 William A. P. Smith, Alassane Seck, Hannah Dee, Bernard Tiddeman, Joshua Tenenbaum and Bernhard Egger. "A Morphable Face Albedo Model". In Proc. of the IEEE Conference on Computer Vision and Pattern Recognition (CVPR), 2020.
+[https://arxiv.org/abs/2004.02711](https://arxiv.org/abs/2004.02711)
 
 Bibtex:
 
