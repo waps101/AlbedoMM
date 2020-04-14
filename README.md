@@ -25,6 +25,7 @@ We make available [Scala code](scala/README.md) for loading the statistical mode
 
 ## Matlab code for sampling and Poisson blending textures
 <p align="center"><img width="100%" src="figures/pipeline.jpg" /></p>
+
 In our capture pipeline, we acquire three photometric views of the head and a mesh to which we fit template geometry. We have developed [Matlab code](matlab/README.md) for sampling and blending the different views into a seamless per-vertex texture. We also make available a matlab implementation of per-vertex ambient occlusion.
 
 ## Loading the model in Matlab
