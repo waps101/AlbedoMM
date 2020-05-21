@@ -66,7 +66,7 @@ Bibtex:
     @inproceedings{stratou2011effect,
       title={Effect of illumination on automatic expression recognition: a novel {3D} relightable facial database},
       author={Stratou, Giota and Ghosh, Abhijeet and Debevec, Paul and Morency, Louis-Philippe},
-      booktitle=FG,
+      booktitle={Proc. International Conference on Automatic Face and Gesture Recognition},
       pages={611--618},
       year={2011}
     }
