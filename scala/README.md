@@ -31,7 +31,7 @@ To build the Morphable Face Albedo Model you have to combine the albedo model wi
  
 
 ## Run (precompiled):
-- run `java -Xmx2g -cp assembly.jar faces.apps.AlbedoModelViewer` (if this fails, try with `-Xmx5g`)
+- run `java -Xmx2g -cp assembly.jar faces.apps.AlbedoModelViewer` (if this fails, try with more memory`-Xmx5g`)
 - in the window that pops up choose the Morphable Face Albedo Model `albedoModel2020_bfm.h5` or `albedoModel2020_face12.h5` you have built in step 1.
 
 ## Usage:
