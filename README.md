@@ -1,4 +1,4 @@
-# [A Morphable Face Albedo Model](https://arxiv.org/abs/2004.02711)
+# [A Morphable Face Albedo Model](http://openaccess.thecvf.com/content_CVPR_2020/papers/Smith_A_Morphable_Face_Albedo_Model_CVPR_2020_paper.pdf)
 
  [William A. P. Smith](https://www-users.cs.york.ac.uk/wsmith)<sup> 1</sup>, [Alassane Seck](https://www.linkedin.com/in/alassane-seck-67508365)<sup> 2,3</sup>, [Hannah Dee](http://users.aber.ac.uk/hmd1/)<sup> 3</sup>, [Bernard Tiddeman](http://users.aber.ac.uk/bpt/)<sup> 3</sup>, [Joshua Tenenbaum](http://web.mit.edu/cocosci/josh.html)<sup> 4</sup> and [Bernhard Egger](https://eggerbernhard.ch/)<sup> 4</sup>
  <br/>
@@ -40,6 +40,16 @@ If you wish to use the model in matlab, download the h5 file in the release fold
     texEV = h5read('albedoModel2020_bfm_albedoPart.h5','/diffuseAlbedo/model/pcaVariance')';
 ```
 
+## FLAME topology model
+
+<p align="center"><img width="100%" src="figures/FLAME.jpg" /></p>
+
+We also make a version of our model available in the topology of the [FLAME model](https://flame.is.tue.mpg.de/). See the official release which contains a compressed numpy file containing the mean, principal components and variances for the diffuse and specular models. Big thanks to [Timo Bolkart](https://sites.google.com/site/bolkartt/) for registering our meshes with the FLAME model.
+
+## Raw data
+
+Some of the participants gave additional permission for their scans to be distributed. We will provide the raw data captured in our scanner, multiview stereo models and the final registered, processed albedo maps on the template mesh. We hope to make this available very soon.
+
 ## License
 
 We give permission to use the model and code only for academic research purposes. Anyone wishing to use the model or code for commercial purposes should contact [William Smith](mailto:william.smith@york.ac.uk) in the first instance.
@@ -57,6 +67,7 @@ Bibtex:
       title={A Morphable Face Albedo Model},
       author={Smith, William A. P. and Seck, Alassane and Dee, Hannah and Tiddeman, Bernard and Tenenbaum, Joshua and Egger, Bernhard},
       booktitle={Proc. of the IEEE Conference on Computer Vision and Pattern Recognition (CVPR)},
+      pages={5011--5020},
       year={2020}
     }
     
